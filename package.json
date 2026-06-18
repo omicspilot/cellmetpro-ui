@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "name": "cellmetpro-ui-root",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "pnpm --filter cellmetpro-desktop dev",
+    "build": "pnpm --filter cellmetpro-desktop build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint"
+  }
+}
