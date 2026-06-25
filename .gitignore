@@ -216,3 +216,15 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+
+node_modules/
+*.tsbuildinfo
+
+
+
+
+# pnpm 
+.package-map.json
+.pnpm-workspace-state-v1.json
