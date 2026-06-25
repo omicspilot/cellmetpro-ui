@@ -138,7 +138,7 @@ cellmetpro-ui/                         # new GitHub repo
 | Auth (remote mode) | **Bearer token** (static, user-generated) | Simple, no OAuth overhead for v1 |
 | Package versioning | `cellmetpro-server==X.Y` pins `cellmetpro==X.Y` | One server version per cellmetpro version |
 | Testing | **pytest** + **httpx** (async test client) | Consistent with CellMetPro |
-| Linting | **ruff** + **mypy** + **black** | Same toolchain as CellMetPro |
+| Linting | **ruff** + **mypy** | ruff handles both linting and formatting (black-compatible) |
 
 ### Frontend (`packages/desktop`)
 
