@@ -7,5 +7,9 @@
     "build": "pnpm --filter cellmetpro-desktop build",
     "test": "pnpm -r test",
     "lint": "pnpm -r lint"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.1.0"
   }
 }

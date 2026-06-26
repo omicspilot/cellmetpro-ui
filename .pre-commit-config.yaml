@@ -1,0 +1,57 @@
+repos:
+  # --- Universal ---
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-toml
+      - id: no-commit-to-branch
+        args: [--branch, main]
+
+  # --- Python (packages/server) ---
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.10        # pin to a specific version
+    hooks:
+      - id: ruff
+        files: ^packages/server/
+      - id: ruff-format
+        files: ^packages/server/
+
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy
+        language: system
+        entry: bash -c 'cd packages/server && uv run mypy cellmetpro_server/'
+        files: ^packages/server/.*\.py$
+        pass_filenames: false
+
+  # --- Node / TypeScript (packages/desktop) ---
+  - repo: local
+    hooks:
+      - id: eslint
+        name: eslint
+        language: system
+        entry: pnpm --filter cellmetpro-desktop lint
+        files: ^packages/desktop/src/.*\.(ts|tsx)$
+        pass_filenames: false
+
+      - id: prettier
+        name: prettier
+        language: system
+        entry: pnpm --filter cellmetpro-desktop format:check
+        files: ^packages/desktop/src/.*\.(ts|tsx|css|json)$
+        pass_filenames: false
+
+  # --- Commit message ---
+  - repo: local
+    hooks:
+      - id: commitlint
+        name: commitlint
+        language: system
+        entry: pnpm commitlint --edit
+        stages: [commit-msg]
+        pass_filenames: false

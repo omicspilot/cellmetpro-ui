@@ -12,8 +12,8 @@ Each step is tackled linearly. Check off items as they are completed.
 - [x] **0.1** — Monorepo structure with `pnpm` workspaces
 - [x] **0.2** — Python environment: `uv`, `pyproject.toml`, `ruff` / `mypy`
 - [x] **0.3** — Node/TS environment: `pnpm`, `tsconfig`, `eslint` / `prettier`
-- [ ] **0.4** — Git hygiene: `.gitignore`, `commitlint`, conventional commits
-- [ ] **0.5** — Pre-commit hooks (Python + JS in one repo)
+- [x] **0.4** — Git hygiene: `.gitignore`, `commitlint`, conventional commits
+- [~] **0.5** — Pre-commit hooks (Python + JS in one repo)
 
 ---
 
