@@ -13,7 +13,7 @@ Each step is tackled linearly. Check off items as they are completed.
 - [x] **0.2** — Python environment: `uv`, `pyproject.toml`, `ruff` / `mypy`
 - [x] **0.3** — Node/TS environment: `pnpm`, `tsconfig`, `eslint` / `prettier`
 - [x] **0.4** — Git hygiene: `.gitignore`, `commitlint`, conventional commits
-- [~] **0.5** — Pre-commit hooks (Python + JS in one repo)
+- [x] **0.5** — Pre-commit hooks (Python + JS in one repo)
 
 ---
 
@@ -21,8 +21,8 @@ Each step is tackled linearly. Check off items as they are completed.
 
 > Python home ground, but with real-world production patterns.
 
-- [ ] **1.1** — FastAPI app skeleton, project layout, Uvicorn
-- [ ] **1.2** — Health check + `GET /version` endpoint
+- [x] **1.1** — FastAPI app skeleton, project layout, Uvicorn
+- [~] **1.2** — Health check + `GET /version` endpoint
 - [ ] **1.3** — File I/O router: multipart upload, temp directory management
 - [ ] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
 - [ ] **1.5** — WebSocket progress streaming (`ws.py`)
