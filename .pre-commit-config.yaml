@@ -25,9 +25,10 @@ repos:
       - id: mypy
         name: mypy
         language: system
-        entry: bash -c 'cd packages/server && uv run mypy cellmetpro_server/'
+        entry: bash -c 'cd packages/server && .venv/bin/mypy cellmetpro_server/'
         files: ^packages/server/.*\.py$
         pass_filenames: false
+
 
   # --- Node / TypeScript (packages/desktop) ---
   - repo: local
@@ -51,7 +52,10 @@ repos:
     hooks:
       - id: commitlint
         name: commitlint
-        language: system
-        entry: pnpm commitlint --edit
+        language: node
+        additional_dependencies:
+          - "@commitlint/cli@latest"
+          - "@commitlint/config-conventional@latest"
+        entry: commitlint --edit
         stages: [commit-msg]
         pass_filenames: false

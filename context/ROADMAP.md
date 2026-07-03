@@ -22,8 +22,8 @@ Each step is tackled linearly. Check off items as they are completed.
 > Python home ground, but with real-world production patterns.
 
 - [x] **1.1** — FastAPI app skeleton, project layout, Uvicorn
-- [~] **1.2** — Health check + `GET /version` endpoint
-- [ ] **1.3** — File I/O router: multipart upload, temp directory management
+- [x] **1.2** — Health check + `GET /version` endpoint
+- [~] **1.3** — File I/O router: multipart upload, temp directory management
 - [ ] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
 - [ ] **1.5** — WebSocket progress streaming (`ws.py`)
 - [ ] **1.6** — COMPASS / scoring router (wraps `cellmetpro`)
