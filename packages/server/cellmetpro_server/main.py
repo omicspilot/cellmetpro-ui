@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from cellmetpro_server import __version__
 
 from .config import get_settings
-from .routers import io, system
+from .routers import io, jobs, system
 
 app = FastAPI(
     title="CellMetPro Server",
@@ -13,6 +13,7 @@ app = FastAPI(
 )
 app.include_router(system.router, prefix="/api/v1")
 app.include_router(io.router, prefix="/api/v1")
+app.include_router(jobs.router, prefix="/api/v1")
 
 
 def run() -> None:

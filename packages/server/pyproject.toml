@@ -12,6 +12,7 @@ dependencies = [
     "uvicorn[standard]>=0.29",
     "pydantic-settings>=2.0",
     "python-multipart>=0.0.32",
+    "asyncio>=4.0.0",
 ]
 
 
