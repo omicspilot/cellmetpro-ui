@@ -12,7 +12,7 @@ async def test_get_existing_job(client: httpx.AsyncClient) -> None:
     assert response.status_code == 200
     data = response.json()
     assert data["id"] == job.id
-    assert data["status"] == JobStatus.PENDING
+    assert data["status"] == JobStatus.PENDING.value
 
 
 async def test_get_nonexistant_job(client: httpx.AsyncClient) -> None:
