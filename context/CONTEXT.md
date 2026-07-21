@@ -133,6 +133,7 @@ cellmetpro-ui/                         # new GitHub repo
 | Concern | Choice | Reason |
 |---|---|---|
 | Framework | **FastAPI** | Async, WebSocket native, auto OpenAPI docs |
+| Database | **SQLAlchemy 2.x async** + **Alembic** + **aiosqlite** | Typed models, tracked migrations, portable to Postgres by changing one string |
 | Task queue | **FastAPI BackgroundTasks** (start), migrate to **ARQ** if needed | Avoids Celery overhead early on |
 | Progress streaming | **WebSocket** per job ID | Real-time progress bars in the UI |
 | Auth (remote mode) | **Bearer token** (static, user-generated) | Simple, no OAuth overhead for v1 |
@@ -170,17 +171,27 @@ cellmetpro-ui/                         # new GitHub repo
 
 ## Key product decisions
 
+### Project model
+- Every user session is organized into **projects** — named workspaces that group files, jobs, and results
+- Projects persist across server restarts via SQLAlchemy + SQLite
+- A user can have multiple concurrent projects and switch between them
+- Projects are the top-level API resource: all files and jobs are project-scoped
+- Data directory: `~/.cellmetpro/projects/{project_id}/` holds the actual files on disk; metadata lives in SQLite
+
 ### File handling
-- Users upload data files (CSV, h5ad, MTX) via a drag-and-drop zone in the UI
-- In local mode: files are written to a temp directory that the server reads from
-- In remote mode: files are multipart-uploaded to the server via the API
-- Results (plots, CSVs) are downloadable from the UI
+- Files are uploaded within a project context: `POST /projects/{project_id}/files/upload`
+- Accepted formats: CSV, h5ad, MTX — as well as pre-computed analysis outputs (e.g. a differential expression table)
+- Files stored on disk under the project directory; metadata (id, filename, size, uploaded_at) persisted in SQLite
+- Results (plots, CSVs) are downloadable from the UI and stored as outputs within the same project directory
+- Users can upload a pre-computed output from any pipeline step and start the analysis from there — no forced order
 
 ### Job model
-- Every analysis operation is a **job** with a UUID
+- Every analysis operation is a **job** with a UUID, scoped to a project
+- Jobs carry an `analysis_type` field: `compass`, `differential`, `clustering`, `visualization`
+- Analyses are modular and independent — running COMPASS is not a prerequisite for differential or visualization
 - Job states: `pending → running → complete | failed`
 - Progress streamed via WebSocket: `{ job_id, step, progress, message }`
-- UI shows a live progress panel — no black-box waiting
+- Job metadata and results persisted in SQLite; the UI shows a live progress panel per job
 
 ### Version management
 - The server reports which cellmetpro version it is running (`GET /version`)

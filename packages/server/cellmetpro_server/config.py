@@ -1,4 +1,5 @@
 import functools
+from pathlib import Path
 
 from pydantic_settings import BaseSettings
 
@@ -8,6 +9,7 @@ class Settings(BaseSettings):
     port: int = 8000
     log_level: str = "info"
     reload: bool = False
+    db_url: str = f"sqlite+aiosqlite:///{Path.home() / '.cellmetpro' / 'data.db'}"
 
 
 @functools.lru_cache

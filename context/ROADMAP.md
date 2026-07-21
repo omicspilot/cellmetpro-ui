@@ -26,12 +26,14 @@ Each step is tackled linearly. Check off items as they are completed.
 - [x] **1.3** — File I/O router: multipart upload, temp directory management
 - [x] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
 - [x] **1.5** — WebSocket progress streaming (`ws.py`)
-- [~] **1.6** — COMPASS / scoring router (wraps `cellmetpro`)
-- [ ] **1.7** — Differential, clustering, visualization routers
-- [ ] **1.8** — Auth middleware: Bearer token (remote mode only)
-- [ ] **1.9** — Error handling, structured logging, CORS
-- [ ] **1.10** — pytest + httpx test suite (100% route coverage target)
-- [ ] **1.11** — OpenAPI spec export (feeds the frontend type generator)
+- [x] **1.6** — Database layer: SQLAlchemy async engine, Alembic setup, Project / File / Job models, first migration
+- [~] **1.7** — Project management router + refactor file and job routers to be project-scoped and SQLAlchemy-backed
+- [ ] **1.8** — COMPASS / scoring router (wraps `cellmetpro`, scoped to a project)
+- [ ] **1.9** — Differential, clustering, visualization routers
+- [ ] **1.10** — Auth middleware: Bearer token (remote mode only)
+- [ ] **1.11** — Error handling, structured logging, CORS
+- [ ] **1.12** — pytest + httpx test suite (100% route coverage target)
+- [ ] **1.13** — OpenAPI spec export (feeds the frontend type generator)
 
 ---
 
