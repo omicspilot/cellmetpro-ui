@@ -12,7 +12,7 @@ from cellmetpro_server import __version__
 
 from .config import get_settings
 from .database import engine
-from .routers import io, jobs, system, ws
+from .routers import io, jobs, projects, system, ws
 
 
 def _run_migrations() -> None:
@@ -35,9 +35,10 @@ app = FastAPI(
     description="Cellular Metabolic Profiler",
     lifespan=lifespan,
 )
-app.include_router(system.router, prefix="/api/v1")
 app.include_router(io.router, prefix="/api/v1")
 app.include_router(jobs.router, prefix="/api/v1")
+app.include_router(projects.router, prefix="/api/v1")
+app.include_router(system.router, prefix="/api/v1")
 app.include_router(ws.router, prefix="/api/v1")
 
 
