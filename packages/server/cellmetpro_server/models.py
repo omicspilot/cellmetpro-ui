@@ -8,6 +8,45 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from cellmetpro_server.jobs import JobStatus
 
 
+class FileType(str, Enum):
+    # Input types — data the user brings in
+    RAW_COUNTS = "raw_counts"
+    FILTERED_COUNTS = "filtered_counts"
+    PREPROCESSED = "preprocessed"
+    GENE_LIST = "gene_list"
+    METADATA = "metadata"
+
+    # Output types — data a job produces
+    COMPASS_RESULT = "compass_result"
+    DIFFERENTIAL_RESULT = "differential_result"
+    CLUSTERING_RESULT = "clustering_result"
+    TRAJECTORY_RESULT = "trajectory_result"
+    VISUALIZATION = "visualization"
+    PATHWAY_ENRICHMENT_RESULT = "pathway_enrichment_result"
+    REPORT = "report"
+
+    UNSPECIFIED = "unspecified"  # fallback when type is unknown
+
+
+class FileStatus(str, Enum):
+    AVAILABLE = "available"
+    MISSING = "missing"
+    CORRUPTED = "corrupted"
+    PROCESSING = "processing"
+
+
+class AnalysisType(str, Enum):
+    UNSPECIFIED = "unspecified"
+    COMPASS = "compass"
+    DIFFERENTIAL = "differential"
+    CLUSTERING = "clustering"
+    VISUALIZATION = "visualization"
+    REPORT = "report"
+    TRAJECTORY = "trajectory"
+    PATHWAY_ENRICHMENT = "pathway_enrichment"
+
+
+# -------- MODELS -------- #
 class Base(DeclarativeBase):
     pass
 
@@ -18,6 +57,7 @@ class Project(Base):
     id: Mapped[str] = mapped_column(String, primary_key=True)
     name: Mapped[str]
     description: Mapped[str | None]
+    workspace_path: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
@@ -53,19 +93,11 @@ class File(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc)
     )
+    file_type: Mapped[str] = mapped_column(String, default=FileType.UNSPECIFIED.value)
+    status: Mapped[str] = mapped_column(String, default=FileStatus.AVAILABLE.value)
+    job_id: Mapped[str | None] = mapped_column(ForeignKey("jobs.id"), nullable=True)
 
     project: Mapped["Project"] = relationship(back_populates="files")
-
-
-class AnalysisType(str, Enum):
-    UNSPECIFIED = "unspecified"
-    COMPASS = "compass"
-    DIFFERENTIAL = "differential"
-    CLUSTERING = "clustering"
-    VISUALIZATION = "visualization"
-    REPORT = "report"
-    TRAJECTORY = "trajectory"
-    PATHWAY_ENRICHMENT = "pathway_enrichment"
 
 
 class Job(Base):

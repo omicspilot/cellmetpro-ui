@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     log_level: str = "info"
     reload: bool = False
     db_url: str = f"sqlite+aiosqlite:///{Path.home() / '.cellmetpro' / 'data.db'}"
+    upload_dir: str = str(Path.home() / ".cellmetpro" / "uploads")
 
 
 @functools.lru_cache

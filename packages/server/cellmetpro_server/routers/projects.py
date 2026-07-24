@@ -6,14 +6,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from cellmetpro_server.const import ErrCode
 from cellmetpro_server.database import get_session
 from cellmetpro_server.models import Project
 from cellmetpro_server.schemas import ProjectCreate, ProjectResponse
-
-details = {
-    "PROJECT_NOT_FOUND": "Project not found",
-    "PROJECT_NOT_DELETED": "Project is not in the trash",
-}
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
@@ -22,7 +18,12 @@ Session = Annotated[AsyncSession, Depends(get_session)]
 
 @router.post("/", response_model=ProjectResponse, status_code=201)
 async def create_project(body: ProjectCreate, session: Session) -> Project:
-    project = Project(id=str(uuid4()), name=body.name, description=body.description)
+    project = Project(
+        id=str(uuid4()),
+        name=body.name,
+        description=body.description,
+        workspace_path=body.workspace_path,
+    )
     session.add(project)
     await session.commit()
 
@@ -51,7 +52,10 @@ async def get_project(project_id: str, session: Session) -> Project:
     project = await session.get(Project, project_id)
 
     if project is None or project.deleted_at is not None:
-        raise HTTPException(status_code=404, detail=details["PROJECT_NOT_FOUND"])
+        raise HTTPException(
+            status_code=404,
+            detail=ErrCode.PROJECT_NOT_FOUND,
+        )
 
     return project
 
@@ -63,7 +67,10 @@ async def soft_delete_project(project_id: str, session: Session) -> None:
     project = await session.get(Project, project_id)
 
     if project is None or project.deleted_at is not None:
-        raise HTTPException(status_code=404, detail=details["PROJECT_NOT_FOUND"])
+        raise HTTPException(
+            status_code=404,
+            detail=ErrCode.PROJECT_NOT_FOUND,
+        )
 
     project.deleted_at = datetime.now(timezone.utc)
     await session.commit()
@@ -75,7 +82,10 @@ async def hard_delete_project(project_id: str, session: Session) -> None:
     project = await session.get(Project, project_id)
 
     if project is None:
-        raise HTTPException(status_code=404, detail=details["PROJECT_NOT_FOUND"])
+        raise HTTPException(
+            status_code=404,
+            detail=ErrCode.PROJECT_NOT_FOUND,
+        )
 
     await session.delete(project)
     await session.commit()
@@ -86,9 +96,12 @@ async def restore_project(project_id: str, session: Session) -> Project:
     project = await session.get(Project, project_id)
 
     if project is None:
-        raise HTTPException(status_code=404, detail=details["PROJECT_NOT_FOUND"])
+        raise HTTPException(
+            status_code=404,
+            detail=ErrCode.PROJECT_NOT_FOUND,
+        )
     elif project.deleted_at is None:
-        raise HTTPException(status_code=400, detail=details["PROJECT_NOT_DELETED"])
+        raise HTTPException(status_code=400, detail=ErrCode.PROJECT_NOT_DELETED)
 
     project.deleted_at = None
 

@@ -176,14 +176,29 @@ cellmetpro-ui/                         # new GitHub repo
 - Projects persist across server restarts via SQLAlchemy + SQLite
 - A user can have multiple concurrent projects and switch between them
 - Projects are the top-level API resource: all files and jobs are project-scoped
-- Data directory: `~/.cellmetpro/projects/{project_id}/` holds the actual files on disk; metadata lives in SQLite
+- Each project has an optional `workspace_path` — a user-chosen directory on their machine where their files live; the UI shows the file tree of that folder
+- Uploaded files (remote mode) land under `~/.cellmetpro/uploads/{project_id}/`; registered files (local mode) keep their original path
+
+### Project lifecycle — trash / soft delete
+- Deleting a project moves it to the **trash** (`deleted_at` timestamp set, files and jobs untouched)
+- Trashed projects are hidden from the active project list but visible in a dedicated trash view
+- Trashed projects can be **restored** (`deleted_at` set back to `None`)
+- **Permanent delete** hard-deletes the project row and cascades to all its files and jobs
+- This two-step model prevents accidental data loss; the UI can also offer direct hard-delete for active projects
 
 ### File handling
-- Files are uploaded within a project context: `POST /projects/{project_id}/files/upload`
+- **Local mode (primary):** files are registered via `POST /projects/{project_id}/files/register` — the server records the absolute path and metadata, no copy is made. The user keeps their files wherever they want.
+- **Remote mode (secondary):** files are uploaded via `POST /projects/{project_id}/files` — the server stores a copy under `~/.cellmetpro/uploads/{project_id}/`
 - Accepted formats: CSV, h5ad, MTX — as well as pre-computed analysis outputs (e.g. a differential expression table)
-- Files stored on disk under the project directory; metadata (id, filename, size, uploaded_at) persisted in SQLite
-- Results (plots, CSVs) are downloadable from the UI and stored as outputs within the same project directory
-- Users can upload a pre-computed output from any pipeline step and start the analysis from there — no forced order
+- Every file has a `file_type` field (enum) describing the kind of data it contains:
+  - Input types: `raw_counts`, `filtered_counts`, `preprocessed`, `gene_list`, `metadata`
+  - Output types: `compass_result`, `differential_result`, `clustering_result`, `trajectory_result`, `visualization`, `report`
+  - Default: `unspecified` — always valid, never blocks registration
+- Every file has a `status` field: `available` (file exists on disk) or `missing` (path no longer reachable)
+- Output files produced by a job carry a `job_id` FK — this is the traceability anchor: result → job → input files
+- File metadata can be updated post-registration via `PATCH /projects/{project_id}/files/{file_id}` (e.g. to correct the type)
+- Analyses are **modular and independent** — no forced pipeline order. Users can register a pre-computed differential result and run visualization directly, bypassing COMPASS entirely
+- On file delete: uploaded copies are removed from disk; registered originals are left untouched (only the DB row is removed)
 
 ### Job model
 - Every analysis operation is a **job** with a UUID, scoped to a project
@@ -192,6 +207,7 @@ cellmetpro-ui/                         # new GitHub repo
 - Job states: `pending → running → complete | failed`
 - Progress streamed via WebSocket: `{ job_id, step, progress, message }`
 - Job metadata and results persisted in SQLite; the UI shows a live progress panel per job
+- Output files produced by a job are linked back to it via `File.job_id` for full provenance
 
 ### Version management
 - The server reports which cellmetpro version it is running (`GET /version`)
