@@ -42,8 +42,8 @@ Each step is tackled linearly. Check off items as they are completed.
 > Known stack, but with production-grade architecture patterns.
 
 - [x] **2.1** — Vite + React 19 + TypeScript scaffold (SWC, path alias `@/`, StrictMode)
-- [ ] **2.2** — Tailwind CSS + shadcn/ui setup
-- [ ] **2.3** — React Router v6: root layout, route definitions
+- [x] **2.2** — Tailwind CSS v4 + shadcn/ui setup (`base-nova` style, `neutral` base, `@base-ui/react` primitives, Geist Variable font, `next-themes` + `ThemeToggle`, `cn` utility, desktop shell layout in `App.tsx`)
+- [~] **2.3** — React Router v6: root layout, route definitions
 - [ ] **2.4** — Zustand store: connection state, active job state
 - [ ] **2.5** — Auto-generated API client from OpenAPI spec (`openapi-ts`)
 - [ ] **2.6** — TanStack Query: data fetching layer, query/mutation patterns
