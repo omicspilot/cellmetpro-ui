@@ -27,7 +27,7 @@ Each step is tackled linearly. Check off items as they are completed.
 - [x] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
 - [x] **1.5** — WebSocket progress streaming (`ws.py`)
 - [x] **1.6** — Database layer: SQLAlchemy async engine, Alembic setup, Project / File / Job models, first migration
-- [~] **1.7** — Project management router (CRUD + soft delete / trash / restore / permanent delete + `workspace_path`) + file router refactor (register for local, upload for remote, `file_type` via Form, `status`, `job_id` traceability, smart delete, `PATCH` for metadata update) + job router refactor (project-scoped, SQLAlchemy-backed)
+- [x] **1.7** — Project management router (CRUD + soft delete / trash / restore / permanent delete + `workspace_path`) + file router refactor (register for local, upload for remote, `file_type` via Form, `status`, `job_id` traceability, smart delete, `PATCH` for metadata update) + job router refactor (project-scoped, SQLAlchemy-backed)
 - [ ] **1.8** — COMPASS / scoring router (wraps `cellmetpro`, scoped to a project)
 - [ ] **1.9** — Differential, clustering, visualization routers
 - [ ] **1.10** — Auth middleware: Bearer token (remote mode only)
@@ -41,7 +41,7 @@ Each step is tackled linearly. Check off items as they are completed.
 
 > Known stack, but with production-grade architecture patterns.
 
-- [ ] **2.1** — Vite + React + TypeScript scaffold
+- [x] **2.1** — Vite + React 19 + TypeScript scaffold (SWC, path alias `@/`, StrictMode)
 - [ ] **2.2** — Tailwind CSS + shadcn/ui setup
 - [ ] **2.3** — React Router v6: root layout, route definitions
 - [ ] **2.4** — Zustand store: connection state, active job state
