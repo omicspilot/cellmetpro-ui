@@ -8,7 +8,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from cellmetpro_server.config import get_settings
-from cellmetpro_server.const import ErrCode
 from cellmetpro_server.database import get_session
 from cellmetpro_server.models import File, FileStatus, FileType, Project
 from cellmetpro_server.schemas import (
@@ -16,6 +15,7 @@ from cellmetpro_server.schemas import (
     FileResponse,
     FileUpdate,
 )
+from cellmetpro_server.utils.const import ErrCode
 
 router = APIRouter(prefix="/projects", tags=["Files", "Projects"])
 

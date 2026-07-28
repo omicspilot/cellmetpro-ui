@@ -2,8 +2,8 @@ import uuid
 
 from starlette.testclient import TestClient
 
-from cellmetpro_server.jobs import JobStatus, job_store
 from cellmetpro_server.main import app
+from cellmetpro_server.utils.jobs import JobStatus, job_store
 
 
 # Note: Because the WebSocket handler loops until the job is terminal,

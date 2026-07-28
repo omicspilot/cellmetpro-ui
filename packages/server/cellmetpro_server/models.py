@@ -5,7 +5,7 @@ from typing import Any
 from sqlalchemy import JSON, DateTime, ForeignKey, Integer, String
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
-from cellmetpro_server.jobs import JobStatus
+from cellmetpro_server.utils.jobs import JobStatus
 
 
 class FileType(str, Enum):

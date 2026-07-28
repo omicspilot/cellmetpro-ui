@@ -10,23 +10,6 @@ class _Base(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-# ------- Project ------- #
-class ProjectCreate(BaseModel):
-    name: str
-    description: str | None = None
-    workspace_path: str | None = None
-
-
-class ProjectResponse(_Base):
-    id: str
-    name: str
-    description: str | None
-    workspace_path: str | None
-    created_at: datetime
-    updated_at: datetime
-    deleted_at: datetime | None
-
-
 # ------- file ------- #
 
 
@@ -67,3 +50,20 @@ class JobResponse(_Base):
     results_meta: dict[str, Any] | None
     created_at: datetime
     updated_at: datetime
+
+
+# ------- Project ------- #
+class ProjectCreate(BaseModel):
+    name: str
+    description: str | None = None
+    workspace_path: str | None = None
+
+
+class ProjectResponse(_Base):
+    id: str
+    name: str
+    description: str | None
+    workspace_path: str | None
+    created_at: datetime
+    updated_at: datetime
+    deleted_at: datetime | None

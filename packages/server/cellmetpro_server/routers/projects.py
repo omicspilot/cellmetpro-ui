@@ -6,10 +6,10 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from cellmetpro_server.const import ErrCode
 from cellmetpro_server.database import get_session
 from cellmetpro_server.models import Project
 from cellmetpro_server.schemas import ProjectCreate, ProjectResponse
+from cellmetpro_server.utils.const import ErrCode
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 

@@ -2,7 +2,7 @@ import uuid
 
 import httpx
 
-from cellmetpro_server.jobs import JobStatus, job_store
+from cellmetpro_server.utils.jobs import JobStatus, job_store
 
 
 async def test_get_existing_job(client: httpx.AsyncClient) -> None:

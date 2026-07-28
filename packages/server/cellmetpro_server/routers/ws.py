@@ -2,7 +2,7 @@ import asyncio
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 
-from cellmetpro_server.jobs import JobStatus, job_store
+from cellmetpro_server.utils.jobs import JobStatus, job_store
 
 router = APIRouter(prefix="/ws", tags=["WebSocket"])
 
