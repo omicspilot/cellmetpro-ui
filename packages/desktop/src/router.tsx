@@ -1,9 +1,9 @@
-import { createHashRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom"
 
-import ProjectDetailPage from "./pages/project-detail";
-import ProjectListPage from "./pages/project-list";
-import RootLayout from "./layouts/root-layout";
-import SettingsPage from "./pages/settings";
+import ProjectDetailPage from "./pages/project-detail"
+import ProjectListPage from "./pages/project-list"
+import RootLayout from "./layouts/root-layout"
+import SettingsPage from "./pages/settings"
 
 export default createHashRouter([
   {
@@ -15,4 +15,4 @@ export default createHashRouter([
       { path: "settings", element: <SettingsPage /> },
     ],
   },
-]);
+])
