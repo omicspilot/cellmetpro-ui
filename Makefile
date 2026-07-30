@@ -49,3 +49,7 @@ desktop-build:
 
 desktop-clean:
 	$(MAKE) -C $(DESKTOP) clean
+
+
+desktop-generate:
+	$(MAKE) -C $(DESKTOP) generate

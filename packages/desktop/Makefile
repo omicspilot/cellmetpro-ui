@@ -23,3 +23,7 @@ build:
 # Remove build output
 clean:
 	rm -rf dist out
+
+# regenerate API client from running server
+generate:
+	pnpm generate
