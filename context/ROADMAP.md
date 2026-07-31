@@ -9,11 +9,11 @@ Each step is tackled linearly. Check off items as they are completed.
 
 > Everything else sits on this. Get it right first.
 
-- [~] **0.1** — Monorepo structure with `pnpm` workspaces
-- [ ] **0.2** — Python environment: `uv`, `pyproject.toml`, `ruff` / `mypy` / `black`
-- [ ] **0.3** — Node/TS environment: `pnpm`, `tsconfig`, `eslint` / `prettier`
-- [ ] **0.4** — Git hygiene: `.gitignore`, `commitlint`, conventional commits
-- [ ] **0.5** — Pre-commit hooks (Python + JS in one repo)
+- [x] **0.1** — Monorepo structure with `pnpm` workspaces
+- [x] **0.2** — Python environment: `uv`, `pyproject.toml`, `ruff` / `mypy`
+- [x] **0.3** — Node/TS environment: `pnpm`, `tsconfig`, `eslint` / `prettier`
+- [x] **0.4** — Git hygiene: `.gitignore`, `commitlint`, conventional commits
+- [x] **0.5** — Pre-commit hooks (Python + JS in one repo)
 
 ---
 
@@ -21,17 +21,19 @@ Each step is tackled linearly. Check off items as they are completed.
 
 > Python home ground, but with real-world production patterns.
 
-- [ ] **1.1** — FastAPI app skeleton, project layout, Uvicorn
-- [ ] **1.2** — Health check + `GET /version` endpoint
-- [ ] **1.3** — File I/O router: multipart upload, temp directory management
-- [ ] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
-- [ ] **1.5** — WebSocket progress streaming (`ws.py`)
-- [ ] **1.6** — COMPASS / scoring router (wraps `cellmetpro`)
-- [ ] **1.7** — Differential, clustering, visualization routers
-- [ ] **1.8** — Auth middleware: Bearer token (remote mode only)
-- [ ] **1.9** — Error handling, structured logging, CORS
-- [ ] **1.10** — pytest + httpx test suite (100% route coverage target)
-- [ ] **1.11** — OpenAPI spec export (feeds the frontend type generator)
+- [x] **1.1** — FastAPI app skeleton, project layout, Uvicorn
+- [x] **1.2** — Health check + `GET /version` endpoint
+- [x] **1.3** — File I/O router: multipart upload, temp directory management
+- [x] **1.4** — Background jobs system (`BackgroundTasks` → job UUID state model)
+- [x] **1.5** — WebSocket progress streaming (`ws.py`)
+- [x] **1.6** — Database layer: SQLAlchemy async engine, Alembic setup, Project / File / Job models, first migration
+- [x] **1.7** — Project management router (CRUD + soft delete / trash / restore / permanent delete + `workspace_path`) + file router refactor (register for local, upload for remote, `file_type` via Form, `status`, `job_id` traceability, smart delete, `PATCH` for metadata update) + job router refactor (project-scoped, SQLAlchemy-backed)
+- [ ] **1.8** — COMPASS / scoring router (wraps `cellmetpro`, scoped to a project)
+- [ ] **1.9** — Differential, clustering, visualization routers
+- [ ] **1.10** — Auth middleware: Bearer token (remote mode only)
+- [ ] **1.11** — Error handling, structured logging, CORS
+- [ ] **1.12** — pytest + httpx test suite (100% route coverage target)
+- [ ] **1.13** — OpenAPI spec export (feeds the frontend type generator)
 
 ---
 
@@ -39,11 +41,11 @@ Each step is tackled linearly. Check off items as they are completed.
 
 > Known stack, but with production-grade architecture patterns.
 
-- [ ] **2.1** — Vite + React + TypeScript scaffold
-- [ ] **2.2** — Tailwind CSS + shadcn/ui setup
-- [ ] **2.3** — React Router v6: root layout, route definitions
-- [ ] **2.4** — Zustand store: connection state, active job state
-- [ ] **2.5** — Auto-generated API client from OpenAPI spec (`openapi-ts`)
+- [x] **2.1** — Vite + React 19 + TypeScript scaffold (SWC, path alias `@/`, StrictMode)
+- [x] **2.2** — Tailwind CSS v4 + shadcn/ui setup (`base-nova` style, `neutral` base, `@base-ui/react` primitives, Geist Variable font, `next-themes` + `ThemeToggle`, `cn` utility, desktop shell layout in `App.tsx`)
+- [x] **2.3** — React Router v6: root layout, route definitions
+- [x] **2.4** — Zustand store: `useConnectionStore` (serverUrl, status, errorMessage) + `useActiveJobStore` (jobId, projectId), selector wired in root layout
+- [x] **2.5** — Auto-generated API client from OpenAPI spec (`openapi-ts`)
 - [ ] **2.6** — TanStack Query: data fetching layer, query/mutation patterns
 - [ ] **2.7** — Feature: File upload (drag-and-drop, multipart POST)
 - [ ] **2.8** — Feature: Job progress panel (WebSocket consumer, live progress bar)
